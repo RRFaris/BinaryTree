@@ -48,8 +48,25 @@ public class BST {
      * @return true if val is in the tree, false otherwise
      */
     public boolean search(int val) {
-        // TODO: Complete the search function
-        return false;
+        return helpSearch(val, root);
+    }
+
+    public boolean helpSearch(int val, BSTNode node) {
+        // Base Cases
+        if (node == null) {
+            return false;
+        }
+        if (node.getVal() == val) {
+            return true;
+        }
+
+        // Recursion
+        if (val < node.getVal()) {
+            return helpSearch(val, node.getLeft());
+        }
+        else {
+            return helpSearch(val, node.getRight());
+        }
     }
 
     /**
@@ -69,8 +86,10 @@ public class BST {
         }
 
         helpInorder(arr, node.getLeft());
+
         arr.add(node);
 //        System.out.println(node.getVal());
+
         helpInorder(arr, node.getRight());
     }
 
@@ -78,7 +97,6 @@ public class BST {
      * @return ArrayList of BSTNodes in preorder
      */
     public ArrayList<BSTNode> getPreorder(BSTNode node) {
-        // TODO: Complete preorder traversal
         ArrayList<BSTNode> arr = new ArrayList<BSTNode>();
         helpPreorder(arr, root);
         return arr;
@@ -91,6 +109,7 @@ public class BST {
 
         arr.add(node);
 //        System.out.println(node.getVal());
+
         helpPreorder(arr, node.getLeft());
         helpPreorder(arr, node.getRight());
     }
@@ -99,7 +118,6 @@ public class BST {
      * @return ArrayList of BSTNodes in postorder
      */
     public ArrayList<BSTNode> getPostorder(BSTNode node) {
-        // TODO: Complete postorder traversal
         ArrayList<BSTNode> arr = new ArrayList<BSTNode>();
         helpPostorder(arr, root);
         return arr;
@@ -112,6 +130,7 @@ public class BST {
 
         helpPostorder(arr, node.getLeft());
         helpPostorder(arr, node.getRight());
+
         arr.add(node);
 //        System.out.println(node.getVal());
     }
@@ -125,7 +144,41 @@ public class BST {
      * @param val The value ot insert
      */
     public void insert(int val) {
-        // TODO: Complete insert
+        // Creates the new node
+        BSTNode nodeInsert = new BSTNode(val);
+        helpInsert(val, root, nodeInsert);
+
+    }
+
+    public void helpInsert(int val, BSTNode node, BSTNode nodeInsert) {
+        // Base case
+        if (node.getVal() == val) {
+            return;
+        }
+
+        if (val < node.getVal()) {
+            // If the node does not have a left child, insert the new node
+            if (node.getLeft() == null) {
+                node.setLeft(nodeInsert);
+            }
+            else {
+                // If the node has a left child, keep recursing
+                helpInsert(val, node.getLeft(), nodeInsert);
+            }
+        }
+
+        else if (val > node.getVal()) {
+            // If the node does not have a right child, insert the new node
+            if (node.getRight() == null) {
+                node.setRight(nodeInsert);
+            }
+            else {
+                // If the node has a right child, keep recursing
+                helpInsert(val, node.getRight(), nodeInsert);
+            }
+        }
+
+
     }
 
     /**

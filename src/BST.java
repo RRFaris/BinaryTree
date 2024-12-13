@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -54,26 +55,68 @@ public class BST {
     /**
      * @return ArrayList of BSTNodes in inorder
      */
-    public ArrayList<BSTNode> getInorder() {
-        // TODO: Complete inorder traversal
-        return null;
+    public ArrayList<BSTNode> getInorder(BSTNode node) {
+
+        // make new arraylist of nodes
+        ArrayList<BSTNode> arr = new ArrayList<BSTNode>();
+        helpInorder(arr, root);
+        return arr;
+    }
+
+    public void helpInorder(ArrayList<BSTNode> arr, BSTNode node) {
+        if (node == null) {
+            return;
+        }
+
+        helpInorder(arr, node.getLeft());
+        arr.add(node);
+//        System.out.println(node.getVal());
+        helpInorder(arr, node.getRight());
     }
 
     /**
      * @return ArrayList of BSTNodes in preorder
      */
-    public ArrayList<BSTNode> getPreorder() {
+    public ArrayList<BSTNode> getPreorder(BSTNode node) {
         // TODO: Complete preorder traversal
-        return null;
+        ArrayList<BSTNode> arr = new ArrayList<BSTNode>();
+        helpPreorder(arr, root);
+        return arr;
+    }
+
+    public void helpPreorder(ArrayList<BSTNode> arr, BSTNode node) {
+        if (node == null) {
+            return;
+        }
+
+        arr.add(node);
+//        System.out.println(node.getVal());
+        helpPreorder(arr, node.getLeft());
+        helpPreorder(arr, node.getRight());
     }
 
     /**
      * @return ArrayList of BSTNodes in postorder
      */
-    public ArrayList<BSTNode> getPostorder() {
+    public ArrayList<BSTNode> getPostorder(BSTNode node) {
         // TODO: Complete postorder traversal
-        return null;
+        ArrayList<BSTNode> arr = new ArrayList<BSTNode>();
+        helpPostorder(arr, root);
+        return arr;
     }
+
+    public void helpPostorder(ArrayList<BSTNode> arr, BSTNode node) {
+        if (node == null) {
+            return;
+        }
+
+        helpPostorder(arr, node.getLeft());
+        helpPostorder(arr, node.getRight());
+        arr.add(node);
+//        System.out.println(node.getVal());
+    }
+
+
 
     /**
      * Inserts the given integer value to the tree
@@ -107,20 +150,20 @@ public class BST {
         System.out.println(tree.search(22));
 
         System.out.println("\nPreorder traversal of binary tree is");
-        ArrayList<BSTNode> sol = tree.getPreorder();
+        ArrayList<BSTNode> sol = tree.getPreorder(tree.root);
         printNodes(sol);
 
         System.out.println("\nInorder traversal of binary tree is");
-        sol = tree.getInorder();
+        sol = tree.getInorder(tree.root);
         printNodes(sol);
 
         System.out.println("\nPostorder traversal of binary tree is");
-        sol = tree.getPostorder();
+        sol = tree.getPostorder(tree.root);
         printNodes(sol);
 
         tree.insert(8);
         System.out.println("\nInorder traversal of binary tree is");
-        sol = tree.getInorder();
+        sol = tree.getInorder(tree.root);
         printNodes(sol);
     }
 }
